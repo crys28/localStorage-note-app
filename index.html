@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NoteApp</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="mainFrame" class="mainFrame">
+       
+            <div id="leftPanel" class="leftPanel" >
+                <div class="topLeftPanel">
+                    <img src="./pics/ballpen.png" alt="" width="75" height="75" onclick="switchColorDialog()">
+                    <div>
+                        <span>Create Collection</span>
+                        <img src="./pics/addBtn.png" alt="" width="50" height="50" onclick="switch_collection_dialog('')">
+                    </div>
+                </div>
+                <div id="collectionList" class="menu">
+                    <span>Home
+                        <div> 
+                        <img src="./pics/edit.png" alt="" width="30" height="30">
+                        <img src="./pics/delete.png" alt="" width="30" height="30">
+                        </div>
+                    </span>
+                </div>
+                <div class="footer">
+                    <span>Copyright © 2024 Crys28</span>
+                </div>
+            </div>
+       
+        
+        <div id="drawer" class="mobileDrawer hideDrawer">
+            <div class="leftPanel">
+                <div class="topLeftPanel">
+                    <img src="./pics/ballpen.png" alt="" width="75" height="75">
+                    <div>
+                        <span>Create Collection</span>
+                        <img src="./pics/addBtn.png" alt="" width="50" height="50" onclick="switch_collection_dialog('')">
+                    </div>
+                </div>
+                <div id="collectionList" class="menu">
+                    <span>Home
+                        <div> 
+                        <img src="./pics/edit.png" alt="" width="30" height="30">
+                        <img src="./pics/delete.png" alt="" width="30" height="30">
+                        </div>
+                    </span>
+                </div>
+                <div class="footer">
+                    <span>Copyright © 2024 Crys28</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="notePanel">
+            <div id="topside" class="titleBar">
+                <div>
+                    <h1>Collection: <i id="collectionName"></i></h1>
+                    <span>
+                    <h2 >| Add new notes</h2>
+                    <img onclick="switchDialog('','')" src="./pics/addBtn.png" alt="" width="50" height="50">
+                    </span>
+                </div>
+                
+                <img id="hamburger" src="./pics/hamburger.png" width="75" height="75" alt="" onclick="openDrawer()">   
+            </div>
+            
+           
+            <div class="noteGrid" id="noteGrid">
+
+                <h1>Blank...</h1>
+                
+                <!-- <div class="noteItem">
+                    <img src="./pics/edit.png" alt="" width="34" height="34">
+                    <img src="./pics/delete.png" alt="" width="34" height="34">
+                    <span>Date: 28/08/24</span>
+                    <h3>new note</h3>
+                    <p>Lorem ipsum, dolor sit amet consect. Votur adipisicing elit. Voluptates exerciectetur adipisicing elit. Votates exerctationem hic dignissimos nulla et voluptatem unde qui rerum nisi culpa obcaecati corporis illum, magni consequuntur. Hic animi reiciendis quas quidem.</p>
+                </div> -->
+                
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <dialog id="diag" >
+        <div class="popup">
+            <div class="topBar">
+                <h1>Create a new note...</h1>
+            </div>
+
+            <div class="middleSection">
+                <span>Note title: <input type="text" id="noteTitle"></span>
+                <div class="toolBar">
+                    <span><b>B</b></span>
+                    <span><i>I</i></span>
+                    <span><u>U</u></span>
+                </div>
+                <textarea name="" id="noteContent"></textarea>
+            </div>
+
+            <div id="bottomBarDialog" class="bottomBar">
+                <!-- <button id="saveBtn">Save</button> -->
+                <button onclick="switchDialog('','')">Cancel</button>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="addCollectionForm">
+        <div class="popup">
+            <div class="top">
+                <h2 id="diagTitle">Create a new collection:</h2>
+                <img src="./pics/delete.png" alt="" width="30" height="30" onclick="switch_collection_dialog('')">
+            </div>
+            <div class="mid">
+                <input type="text" id="collectionInput" maxlength="12">
+            </div>
+            <div class="bottom">
+                <div id="addCollectionBottom">
+                    <!-- <button id="saveCollectionBtn" onclick="set_update_collection('')">Save</button> -->
+                    <button onclick="switch_collection_dialog('')">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    <dialog id="colorForm">
+        <div class="popup">
+            <div class="colorInputs">
+                <div class="drawerColor">
+                    <span>Drawer</span>
+                    <input id="drawerColor" type="color" value="#008b8b">
+                </div>
+                <div class="navColor">
+                    <span>Topside</span>
+                    <input id="navColor" type="color" value="#FFFFFF">
+                </div>
+                <div class="notegridColor">
+                    <span>Note grid</span>
+                    <input id="notegridColor" type="color" value="#FFFFFF">
+                </div>
+                <div class="textColor">
+                    <span>Text Color</span>
+                    <input id="textColor" type="color" value="#000000">
+                </div>
+            </div>
+            <div class="btns">
+                <button onclick="setColor()">Save</button>
+                <button onclick="resetColor()">Reset</button>
+                <button onclick="switchColorDialog()">Cancel</button>
+            </div>
+        </div>
+    </dialog>
+
+    <div id="bgDrop" class="dialogBackdrop" onclick="onMouseOutCloseModal()"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
