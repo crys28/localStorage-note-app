@@ -1,4 +1,5 @@
 console.log(localStorage)
+
 if(localStorage.length == 0){
     localStorage.setItem("openCollection", JSON.stringify("Home"))
     localStorage.setItem("collectionList", JSON.stringify(["Home"]))
@@ -19,11 +20,10 @@ if(localStorage.length == 0){
         colorApp()
     }, 200);
 }
-// const test = JSON.parse(localStorage.getItem("collectionList"))
+
 // localStorage.setItem("openCollection", JSON.stringify("Home"))
-// console.log(test[1])
+
 const colorApp = () => {
-    // alert("AD")
     const appColor = JSON.parse(localStorage.getItem("appColor"))
 
     const leftPanel = document.getElementById("leftPanel");
@@ -37,14 +37,15 @@ const colorApp = () => {
     mainFrame.style.color = appColor.textCol
 }
 colorApp()
+
 const openCollection = () =>{
     const collectionName = document.getElementById("collectionName")
     collectionName.textContent = JSON.parse(localStorage.getItem("openCollection"))
-    // console.log(JSON.parse(localStorage.getItem("openCollection")))
-    // collectionName.textContent = JSON.parse(localStorage.getItem("openCollection")) != "undefined" ? JSON.parse(localStorage.getItem("openCollection")) : "Home"
 }
 openCollection()
 
+
+// RENDER NOTES - this function is responsible for rendering dynamically the notes on the web page.
 const renderNotes = () =>{
     const noteGrid = document.getElementById("noteGrid")
     noteGrid.innerHTML = ""
@@ -52,7 +53,7 @@ const renderNotes = () =>{
 
     for(let i = 0; i<localStorage.length;i++){
 
-        if(localStorage.key(i) != "openCollection" && localStorage.key(i) != "collectionList"){
+        if(localStorage.key(i) != "openCollection" && localStorage.key(i) != "collectionList" && localStorage.key(i) != "appColor"){
             if(JSON.parse(localStorage.getItem(localStorage.key(i))).collection == collectionTitle){
 
                 const div = document.createElement('div');
@@ -62,7 +63,7 @@ const renderNotes = () =>{
                 imgEdit.width = "34"
                 imgEdit.height = "34"
                 imgEdit.addEventListener("click", () =>{
-                    editNote(JSON.parse(localStorage.getItem(localStorage.key(i))).title, JSON.parse(localStorage.getItem(localStorage.key(i))).content, true, JSON.parse(localStorage.getItem(localStorage.key(i))).id)
+                    editNote(JSON.parse(localStorage.getItem(localStorage.key(i))).title, JSON.parse(localStorage.getItem(localStorage.key(i))).content, JSON.parse(localStorage.getItem(localStorage.key(i))).id)
                     
                 })
                 const imgDelete = document.createElement('img');
@@ -74,7 +75,6 @@ const renderNotes = () =>{
                         localStorage.removeItem(localStorage.key(i));
                         renderNotes()
                     }
-                   
                 })
                 const span = document.createElement('span');
                 span.innerText = JSON.parse(localStorage.getItem(localStorage.key(i))).date;
@@ -91,21 +91,14 @@ const renderNotes = () =>{
         
                 noteGrid.append(div)
             }
-            
         }else{
             continue;
         }
     }
-
-
 }
-
 renderNotes()
 
-
-// console.log(JSON.parse(localStorage.getItem("openCollection")))
-// console.log(JSON.parse(localStorage.getItem("collectionList"))[2])
-
+//Switch Dialog - This function is responsible for the opening or closing the dialog window for creating a new note or editing an existing one.
 const switchDialog = (title, content) =>{
     const dialog = document.getElementById("diag")
     const dialogState = dialog.getAttribute("open")
@@ -138,35 +131,30 @@ const switchDialog = (title, content) =>{
         const saveBtn = document.getElementById("saveBtn");
         saveBtn.remove()
     }
-
 }
 
-
-// console.log(JSON.parse(localStorage.getItem(localStorage.key(1))).title)
-// localStorage.clear()
-// const notes = localStorage.getItem("1725281234066")
-// console.log(JSON.parse(notes))
-// console.log(Object.values(JSON.parse(notes)))
-
+//This function represents the functionality of the 'Save' button when creating a new note.
 const saveNote = () =>{
     const noteTitle = document.getElementById("noteTitle").value
     const noteContent = document.getElementById("noteContent").value
-
+    
     set_update_note(noteTitle, noteContent, "")
 }
 
-const editNote = (title, content, editState, noteId) => {
+//This function represents the functionality of the 'Edit' button when editing an existing note.
+const editNote = (title, content, noteId) => {
     switchDialog(title, content);
-        const saveBtn = document.getElementById("saveBtn");
-        saveBtn.removeEventListener("click", saveNote)
-        saveBtn.textContent = "Edit"
-        saveBtn.addEventListener("click", ()=>{
-            const noteTitle = document.getElementById("noteTitle").value
-            const noteContent = document.getElementById("noteContent").value
-            set_update_note(noteTitle, noteContent, noteId)
-        })
+    const saveBtn = document.getElementById("saveBtn");
+    saveBtn.removeEventListener("click", saveNote)
+    saveBtn.textContent = "Edit"
+    saveBtn.addEventListener("click", ()=>{
+        const noteTitle = document.getElementById("noteTitle").value
+        const noteContent = document.getElementById("noteContent").value
+        set_update_note(noteTitle, noteContent, noteId)
+    })
 }
 
+//This function is called by both the save and edit button and executes coresponding behaviour. 
 const set_update_note = (noteTitle, noteContent, noteId) =>{
     const collectionName = document.getElementById("collectionName").innerText
     if(noteTitle != "" && noteContent != ""){
@@ -187,8 +175,7 @@ const set_update_note = (noteTitle, noteContent, noteId) =>{
     }
 }
 
-
-
+// RENDER Collections - this function is responsible for rendering dynamically the list of collections on the left panel.
 const renderCollections = () =>{
     const collectionList = document.getElementById("collectionList")
     collectionList.innerHTML = ""
@@ -208,7 +195,6 @@ const renderCollections = () =>{
         editImg.width = "30"
         editImg.height = "30"
         editImg.addEventListener("click", ()=>{
-            // alert(collectionList_Storage[i])
             renameCollection(collectionList_Storage[i])
         })
         div.append(editImg)
@@ -226,10 +212,10 @@ const renderCollections = () =>{
         span.append(div)
         collectionList.append(span)
     }
-
 }
 renderCollections()
 
+//Switch Collection Dialog - This function is responsible for the opening or closing the dialog window for creating a new list or for renaming it.
 const switch_collection_dialog = (title) =>{
     const addCollectionForm = document.getElementById("addCollectionForm")
     const dialogState = addCollectionForm.getAttribute("open")
@@ -277,10 +263,12 @@ const switch_collection_dialog = (title) =>{
     }
 }
 
+//Function assigned to 'Save' button when creating a new collection.
 const createCollection = () =>{
     set_update_collection('')
 }
 
+//Function responsible for renaming a collection
 const renameCollection = (title) => {
     switch_collection_dialog(title)
     const saveBtn = document.getElementById("saveCollectionBtn");
@@ -290,6 +278,7 @@ const renameCollection = (title) => {
         })
 }
 
+//Function which deletes a collection and all coresponding notes from it.
 const deleteCollection = (i, collectionTitle) => {
 
     try {
@@ -317,6 +306,7 @@ const deleteCollection = (i, collectionTitle) => {
     
 }
 
+//Function responsible for renaming or creating a new collection.
 const set_update_collection = (title) =>{
     const collectionInput = document.getElementById("collectionInput").value
     if(collectionInput != ""){
@@ -340,15 +330,12 @@ const set_update_collection = (title) =>{
         } catch (err) {
             console.log(err)
         }
-        // noteId != "" ? alert("Note updated succesfully") : alert("Note saved succesfully")
     }else{
         alert("Fill in the blanks !!!")        
     }
 }
 
-
-
-
+//This function opens the drawer when in mobile view.
 const openDrawer = () =>{
     const leftPanel = document.getElementById("leftPanel");
     const bgDrop = document.getElementById("bgDrop")
@@ -356,9 +343,7 @@ const openDrawer = () =>{
      bgDrop.style.zIndex = "0"
 }
 
-// const leftPanel = document.getElementById("leftPanel");
-// leftPanel.classList.
-
+//This function allows closing the drawer or any other popup by clicking outside of it.
 const onMouseOutCloseModal = ()=>{
     const addCollectionForm = document.getElementById("addCollectionForm").getAttribute("open")
     const dialog = document.getElementById("diag").getAttribute("open")
@@ -379,7 +364,7 @@ const onMouseOutCloseModal = ()=>{
     }
 }
 
-
+//This function is responsible for saving any new color changes.
 const setColor = () =>{
     const drawerColor = document.getElementById("drawerColor")
     const navColor = document.getElementById("navColor")
@@ -396,18 +381,9 @@ const setColor = () =>{
     localStorage.setItem("appColor", JSON.stringify(appColor))
 
     colorApp()
-    // const leftPanel = document.getElementById("leftPanel");
-    // const topside = document.getElementById("topside");
-    // const noteGrid = document.getElementById("noteGrid");
-    // const mainFrame = document.getElementById("mainFrame");
-
-    // leftPanel.style.backgroundColor = drawerColor.value
-    // topside.style.backgroundColor = navColor.value
-    // noteGrid.style.backgroundColor = notegridColor.value
-    // mainFrame.style.color = textColor.value
-    // alert(drawerColor.value)
 }
 
+//This function resets the colors to their default values.
 const resetColor = () =>{
     document.getElementById("drawerColor").value = "#008b8b"
     document.getElementById("navColor").value = "#FFFFFF"
@@ -415,6 +391,7 @@ const resetColor = () =>{
     document.getElementById("textColor").value = "#000000"
 }
 
+//This function toggles the changing color dialog.
 const switchColorDialog = () =>{
     const colorForm = document.getElementById("colorForm")
     const dialogState = colorForm.getAttribute("open")
@@ -433,8 +410,6 @@ const switchColorDialog = () =>{
         document.getElementById("notegridColor").value = appColor.noteGrid
         document.getElementById("textColor").value = appColor.textCol
        
-        
-        
         bgDrop.style.zIndex = "0"
     }else{
         colorForm.removeAttribute("open")
@@ -445,18 +420,7 @@ const switchColorDialog = () =>{
         if(leftPanel.classList.contains("active")){
             bgDrop.style.zIndex = "0"
         }else{
-
             bgDrop.style.zIndex = "-500"
         }
-
     }
 }
-
-// localStorage.setItem(Date.now(), JSON.stringify( [
-//     {
-//         title: noteTitle,
-//         content: noteContent,
-//         date: `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`
-//     }
-// ]))
-

@@ -161,12 +161,6 @@
             overflow-y: scroll;
             justify-content: space-between;
             grid-template-columns: auto auto auto auto;
-            /* margin: 10%; */
-            /* max-width: 1200px; */
-            /* &:has(.noteItem:hover) .noteItem:not(:hover){
-                opacity: 0.7;
-                filter: blur(4px);
-            } */
            h1{
             margin: auto;
             opacity: 0.4;
@@ -177,7 +171,6 @@
             .noteItem{
                 width: 280px;
                 height: 290px;
-                /* float: left; */
                 background-color: #FFDA22;
                 box-shadow: 2px 3px 25px grey;
                 transition: 0.2s ease;
@@ -188,7 +181,6 @@
                 display: flex;
                 flex-direction: column;
                 overflow-y: scroll;
-                /* padding: 5%; */
                 -ms-overflow-style: none;  /* IE and Edge */
                 scrollbar-width: none; 
                 &::-webkit-scrollbar {
@@ -206,7 +198,6 @@
                     opacity: 0;
                     transition: 0.8s ease;
                     cursor: pointer;
-                    /* position: fixed; */
                   
                         &:hover{
                             filter: brightness(80%);
@@ -238,8 +229,6 @@
                     transform: scale(1.1);
 
                     img{
-                        /* position: relative; */
-                       
                         position: fixed;
                         transform: translateY(-10%);
                         opacity: 1;
@@ -254,7 +243,6 @@
                         transform: translateY(10%);
                         margin-bottom: 50px;
                         margin-top: 25px;
-                        
                     }
 
                     h3{
@@ -300,8 +288,6 @@
         flex-direction: column;
         width: 100%;
         height: 100%;
-        
-
     
         .topBar{
             flex: 1;
@@ -334,8 +320,6 @@
                     font-size: larger;
                     &:hover{
                         filter:contrast(10%);
-                        /* background-color: grey; */
-
                     }
                   
                 }
@@ -375,14 +359,11 @@
 #addCollectionForm{
     margin: auto;
     z-index: 2000;
-    /* width: 25%; */
     left: 0;
     top: 0;
     padding: 0%;
-    
     bottom: 0;
     right: 0;
-    /* height: 40%; */
     background-color: #F7ECCA;
     border-radius: 2%;
 
@@ -391,7 +372,7 @@
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
-        ::backdrop {
+        /* ::backdrop {
             background-image: linear-gradient(
               45deg,
               magenta,
@@ -400,15 +381,10 @@
               green
             );
             opacity: 0.75;
-          }
-          
-
+          } */
         .top{
             width: 100%;
-            /* top: 0; */
-            /* padding: 5%; */
             background-color:#F4F1E2;;
-            /* margin: 5%; */
             text-wrap: nowrap;
             align-self: flex-start;
             border-bottom: 1px solid black;
@@ -426,15 +402,11 @@
         .mid{
             width: 100%;
             padding: 8%;
-            /* background-color: red; */
-            /* align-self: center; */
-            /* padding: 10%; */
             text-wrap: nowrap;
             display: flex;
             justify-content: center;
             input{
                 width: 75%;
-                
                 padding: 2%;
                 font-size: 25px;
             }
@@ -444,7 +416,6 @@
             display: flex;
             background-color:#F4F1E2;
             justify-content: right;
-            /* padding: 2%; */
             border-top: 1px solid black;
             div{
                 gap: 10px;
@@ -465,15 +436,12 @@
     right: 0;
     background-color: #F7ECCA;
     border-radius: 2%;
-    /* width: 30%; */
     .popup{
-
         display: flex;
         align-items: center;
         justify-content: center;
         flex-direction: column;
         font-size: 15px;
-        /* text-wrap: nowrap; */
         .colorInputs{
             display: flex;
             flex-direction: row;
@@ -495,7 +463,6 @@
             .colorInputs { flex-direction: column; }
           }
         .btns{
-            /* margin: 10% 18% 2% 18%; */
             display: flex;
             width: 100%;
             justify-content: right;
@@ -510,10 +477,7 @@
     
 }
 
-
-
 .dialogBackdrop{
-    /* display: none; */
     z-index: -500;
     margin: auto;
     left: 0;
