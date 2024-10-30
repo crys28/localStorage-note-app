@@ -95,13 +95,15 @@
             /* text-align: center; */
 
             span, input{
-                background-color: cadetblue;
+                /* background-color: cadetblue; */
+                border-bottom: 1px solid black;
                 /* width: ; */
                 padding: 5px 10px;
                 margin: 5px 0;
                 cursor: pointer;
                 &:hover{
                     filter: brightness(75%);
+                    font-weight: bolder;
                 }
             }
             label{
