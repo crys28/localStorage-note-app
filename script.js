@@ -424,3 +424,53 @@ const switchColorDialog = () =>{
         }
     }
 }
+
+
+//BACKUP and SYNC
+
+const backUp = () =>{
+   // Get all localStorage data
+  const data = JSON.stringify(localStorage);
+
+  // Create a Blob with the data
+  const blob = new Blob([data], { type: 'application/json' });
+
+  // Create a temporary anchor element to trigger file download
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'localStorageBackup.json'; // Default file name
+
+  // Trigger the download
+  a.click();
+
+  // Clean up the URL object after download
+  URL.revokeObjectURL(a.href);
+  alert('LocalStorage successfully backed up!');
+}
+
+const warning = () =>{
+    alert('Remember, this will erase all your current data so please backup first !!!')
+}
+
+const restoreLocalStorage = async (event) =>{
+    const file = event.target.files[0];
+    if (file) {
+      const text = await file.text(); // Read the file content as text
+      try {
+        const data = JSON.parse(text); // Parse the JSON content
+        // Clear current localStorage and load new data
+        localStorage.clear();
+        for (const key in data) {
+          localStorage.setItem(key, data[key]);
+        }
+        alert('LocalStorage successfully restored!');
+        openCollection()
+        renderCollections()
+        renderNotes()
+        colorApp()
+      } catch (error) {
+        alert('Invalid file format. Please select a valid backup file.');
+      }
+    }
+  
+}
