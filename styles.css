@@ -86,18 +86,13 @@
         }
         .backUp{
             display: flex;
-            /* width: 100%; */
             padding: 2rem 0;
-            /* justify-content: center; */
             flex-direction: column;
             align-items: center;
             gap: 5%;
-            /* text-align: center; */
 
             span, input{
-                /* background-color: cadetblue; */
-                border-bottom: 1px solid black;
-                /* width: ; */
+                border: 1px solid black;
                 padding: 5px 10px;
                 margin: 5px 0;
                 cursor: pointer;
@@ -200,7 +195,7 @@
             .noteItem{
                 width: 280px;
                 height: 290px;
-                background-color: #FFDA22;
+                /* background-color: #FFDA22; */
                 box-shadow: 2px 3px 25px grey;
                 transition: 0.2s ease;
                 padding: 5%;

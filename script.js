@@ -9,6 +9,7 @@ if(localStorage.length == 0){
             "topside" : "#FFFFFF",
             "noteGrid" : "#FFFFFF",
             "textCol" : "#000000",
+            "noteCol" : "#FFDA22",
         }
     ))
     // localStorage.setItem("collectionList", JSON.stringify(["Home"]))
@@ -30,11 +31,19 @@ const colorApp = () => {
     const topside = document.getElementById("topside");
     const noteGrid = document.getElementById("noteGrid");
     const mainFrame = document.getElementById("mainFrame");
+    
 
+    setTimeout(() => {
+    const noteItem = document.querySelectorAll("div.noteItem");
     leftPanel.style.backgroundColor = appColor.drawer
     topside.style.backgroundColor = appColor.topside
     noteGrid.style.backgroundColor = appColor.noteGrid
     mainFrame.style.color = appColor.textCol
+    noteItem.forEach(element => {
+        element.style.backgroundColor = appColor.noteCol
+    });
+    }, 300);
+    
 }
 colorApp()
 
@@ -47,6 +56,7 @@ openCollection()
 
 // RENDER NOTES - this function is responsible for rendering dynamically the notes on the web page.
 const renderNotes = () =>{
+    const appColor = JSON.parse(localStorage.getItem("appColor"))
     const noteGrid = document.getElementById("noteGrid")
     noteGrid.innerHTML = ""
     const collectionTitle = document.getElementById("collectionName").innerText
@@ -58,6 +68,7 @@ const renderNotes = () =>{
 
                 const div = document.createElement('div');
                 div.classList.add("noteItem")
+                div.style.backgroundColor = appColor.noteCol
                 const imgEdit = document.createElement('img');
                 imgEdit.src = "./pics/edit.png";
                 imgEdit.width = "34"
@@ -370,6 +381,7 @@ const setColor = () =>{
     const navColor = document.getElementById("navColor")
     const notegridColor = document.getElementById("notegridColor")
     const textColor = document.getElementById("textColor")
+    const noteColor = document.getElementById("noteColor")
 
     const appColor = JSON.parse(localStorage.getItem("appColor"))
     
@@ -377,6 +389,7 @@ const setColor = () =>{
     appColor.topside = navColor.value
     appColor.noteGrid = notegridColor.value
     appColor.textCol = textColor.value
+    appColor.noteCol = noteColor.value
 
     localStorage.setItem("appColor", JSON.stringify(appColor))
 
@@ -389,6 +402,7 @@ const resetColor = () =>{
     document.getElementById("navColor").value = "#FFFFFF"
     document.getElementById("notegridColor").value = "#FFFFFF"
     document.getElementById("textColor").value = "#000000"
+    document.getElementById("noteColor").value = "#FFDA22"
 }
 
 //This function toggles the changing color dialog.
@@ -409,6 +423,7 @@ const switchColorDialog = () =>{
         document.getElementById("navColor").value = appColor.topside
         document.getElementById("notegridColor").value = appColor.noteGrid
         document.getElementById("textColor").value = appColor.textCol
+        document.getElementById("noteColor").value = appColor.noteCol
        
         bgDrop.style.zIndex = "0"
     }else{
